@@ -1,5 +1,6 @@
 const Task = require('../models/Task');
 const { normalizeDate, getTodayDate } = require('../utils/helpers');
+const gamificationService = require('../features/gamification/gamificationService');
 
 // @desc    Get tasks for a specific date
 // @route   GET /api/tasks?date=YYYY-MM-DD
@@ -72,6 +73,11 @@ exports.updateTask = async (req, res, next) => {
     });
 
     res.status(200).json({ success: true, data: task });
+
+    // Background task: Add XP if task was completed
+    if (req.body.status === 'completed') {
+      gamificationService.addXP(req.user._id, 10).catch(err => console.error('XP Error:', err));
+    }
   } catch (error) {
     next(error);
   }

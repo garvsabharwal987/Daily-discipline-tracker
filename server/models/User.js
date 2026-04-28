@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
     trim: true,
     match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email']
   },
+  nickname: {
+    type: String,
+    trim: true,
+    maxlength: [50, 'Nickname cannot exceed 50 characters']
+  },
   password: {
     type: String,
     required: [true, 'Please provide a password'],
@@ -26,7 +31,21 @@ const userSchema = new mongoose.Schema({
     darkMode: { type: Boolean, default: false },
     notificationsEnabled: { type: Boolean, default: true },
     timezone: { type: String, default: 'UTC' }
-  }
+  },
+  // Gamification fields
+  gamification: {
+    xp: { type: Number, default: 0 },
+    level: { type: Number, default: 1 },
+    badges: [{
+      id: { type: String, required: true },
+      name: { type: String, required: true },
+      description: String,
+      icon: String,
+      earnedAt: { type: Date, default: Date.now }
+    }]
+  },
+  // Social fields
+  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 }, {
   timestamps: true
 });

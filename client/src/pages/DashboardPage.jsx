@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import api from '../services/api';
 import { ProgressRing, LoadingSkeleton } from '../components/ui/SharedComponents';
 import { useAuth } from '../context/AuthContext';
+import WordOfDay from '../features/word/WordOfDay';
 
 const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444'];
 
@@ -51,13 +52,19 @@ export default function DashboardPage() {
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-8">
-      {/* Header */}
-      <motion.div variants={item}>
-        <h1 className="text-3xl font-bold text-surface-900 dark:text-white">
-          Good {new Date().getHours() < 12 ? 'Morning' : new Date().getHours() < 18 ? 'Afternoon' : 'Evening'}, {user?.name?.split(' ')[0]} 👋
-        </h1>
-        <p className="text-surface-500 dark:text-surface-400 mt-1">{today}</p>
-      </motion.div>
+      {/* Header & Word of Day */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <motion.div variants={item} className="lg:col-span-2">
+          <h1 className="text-3xl font-bold text-surface-900 dark:text-white">
+            Good {new Date().getHours() < 12 ? 'Morning' : new Date().getHours() < 18 ? 'Afternoon' : 'Evening'}, {user?.nickname || user?.name?.split(' ')[0]} 👋
+          </h1>
+          <p className="text-surface-500 dark:text-surface-400 mt-1">{today}</p>
+        </motion.div>
+        
+        <motion.div variants={item}>
+          <WordOfDay />
+        </motion.div>
+      </div>
 
       {/* Stat Cards */}
       <motion.div variants={item} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

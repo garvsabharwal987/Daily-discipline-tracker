@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
+const initWordCron = require('./features/word/wordCron');
 
 // Load env vars
 dotenv.config();
@@ -33,6 +34,13 @@ app.use('/api/streaks', require('./routes/streakRoutes'));
 app.use('/api/vocab', require('./routes/vocabRoutes'));
 app.use('/api/reading', require('./routes/readingRoutes'));
 app.use('/api/dashboard', require('./routes/dashboardRoutes'));
+app.use('/api/calendar', require('./features/calendar/calendarRoutes'));
+app.use('/api/gamification', require('./features/gamification/gamificationRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/word', require('./features/word/wordRoutes'));
+
+// Initialize cron jobs
+initWordCron();
 
 // Health check
 app.get('/api/health', (req, res) => {
