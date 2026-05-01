@@ -67,7 +67,10 @@ export default function ProfileDropdown() {
               <div className="flex items-center justify-between mb-3">
                 <p className="text-xs font-bold text-surface-400 uppercase tracking-widest">Profile</p>
                 <button 
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => {
+                    setIsModalOpen(true);
+                    setIsOpen(false);
+                  }}
                   className="text-[10px] font-bold text-primary-500 hover:text-primary-400 transition-colors uppercase tracking-widest"
                 >
                   Edit Nickname ✏️
@@ -107,14 +110,6 @@ export default function ProfileDropdown() {
               >
                 <span className="text-xl group-hover:scale-110 transition-transform">🔥</span>
                 <span className="text-sm font-semibold">Streak History</span>
-              </Link>
-              <Link
-                to="/calendar"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-800 text-surface-700 dark:text-surface-300 transition-colors group"
-              >
-                <span className="text-xl group-hover:scale-110 transition-transform">📅</span>
-                <span className="text-sm font-semibold">Calendar View</span>
               </Link>
             </div>
 

@@ -8,9 +8,8 @@ import TasksPage from './pages/TasksPage';
 import VocabularyPage from './pages/VocabularyPage';
 import ReadingPage from './pages/ReadingPage';
 import StreaksPage from './pages/StreaksPage';
-import CalendarPage from './features/calendar/CalendarPage';
-import GamificationPage from './features/gamification/GamificationPage';
 import ProfilePage from './features/profile/ProfilePage';
+import GamificationPage from './features/gamification/GamificationPage';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -42,7 +41,6 @@ export default function App() {
         <Route path="vocabulary" element={<VocabularyPage />} />
         <Route path="reading" element={<ReadingPage />} />
         <Route path="streaks" element={<StreaksPage />} />
-        <Route path="calendar" element={<CalendarPage />} />
         <Route path="gamification" element={<GamificationPage />} />
         <Route path="profile" element={<ProfilePage />} />
       </Route>

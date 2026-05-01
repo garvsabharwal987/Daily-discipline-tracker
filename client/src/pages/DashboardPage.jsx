@@ -5,6 +5,7 @@ import api from '../services/api';
 import { ProgressRing, LoadingSkeleton } from '../components/ui/SharedComponents';
 import { useAuth } from '../context/AuthContext';
 import WordOfDay from '../features/word/WordOfDay';
+import MiniCalendar from '../features/calendar/MiniCalendar';
 
 const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444'];
 
@@ -45,25 +46,23 @@ export default function DashboardPage() {
 
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-  const taskPieData = stats ? [
-    { name: 'Completed', value: stats.tasks.completed || 0 },
-    { name: 'Pending', value: stats.tasks.pending || 0 },
-  ].filter(d => d.value > 0) : [];
-
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-8">
-      {/* Header & Word of Day */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      {/* Header, Word of Day & Mini Calendar */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
         <motion.div variants={item} className="lg:col-span-2">
           <h1 className="text-3xl font-bold text-surface-900 dark:text-white">
             Good {new Date().getHours() < 12 ? 'Morning' : new Date().getHours() < 18 ? 'Afternoon' : 'Evening'}, {user?.nickname || user?.name?.split(' ')[0]} 👋
           </h1>
-          <p className="text-surface-500 dark:text-surface-400 mt-1">{today}</p>
-        </motion.div>
-        
-        <motion.div variants={item}>
+          <p className="text-surface-500 dark:text-surface-400 mt-1 mb-6">{today}</p>
           <WordOfDay />
         </motion.div>
+        
+        <div className="lg:col-span-2 flex justify-end">
+          <motion.div variants={item} className="w-full max-w-[260px]">
+            <MiniCalendar />
+          </motion.div>
+        </div>
       </div>
 
       {/* Stat Cards */}
